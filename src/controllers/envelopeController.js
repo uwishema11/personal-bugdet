@@ -3,13 +3,16 @@ const model = require('../../models');
 
 exports.createEnvelope = async(req,res) =>{
     try{
-        const createdEnvelope = await model.Envelope.create(req.body)
-        if(createdEnvelope){
+         const isExist= req.body.envelopeName
+        const existedEnvelope= await model.Envelope.findOne({ where: { envelopeName: isExist } });
+        
+        if(existedEnvelope){
             return res.status(200).json({
                 success: 'fail',
                 message: 'the envelope already exists'
             })
         }
+        const createdEnvelope = await model.Envelope.create(req.body)
         return res.status(200).json({
             success: 'failled',
             result: createdEnvelope

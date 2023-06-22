@@ -6,9 +6,10 @@ const categoryRoute =require('./routes/categoryRoute')
 
 
 const app = express();
+app.use(express.json());
 app.use(cors());
 app.use(morgan('dev'))
-app.use('./api/v1/category',categoryRoute)
+app.use('/api/v1/category',categoryRoute)
 
 app.get('/', (req,res)=>{
     res.send("Hello World")

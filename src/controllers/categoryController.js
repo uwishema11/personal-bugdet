@@ -1,15 +1,21 @@
 
-const model= require('../../models')
+const model = require('../../models')
+const categoryservice =require('../services/categoryService')
+
 
 exports.createCategory = async(req,res) =>{
     try{
-        const createdCategory = await model.Category.create(req.body);
-        if(createdCategory) {
+        console.log(req.body)
+        const isExist= req.body.name
+        const exixtedCategory = await model.Category.findOne({ where: { name: isExist } });
+       
+        if(exixtedCategory) {
             return res.status(400).json({
                 success: false,
                 message: 'category already exists'
             })
         };
+        const createdCategory = await categoryservice.addCategory(req.body);
         return res.status(200).json({
             success: true,
             result: createdCategory
@@ -19,7 +25,7 @@ exports.createCategory = async(req,res) =>{
         console.log(error)
         return res.status(500).json({
             success: 'failled',
-            message: error.message[0]
+            message: error.message
         })
     }
 };
