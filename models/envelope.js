@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Envelope.belongsTo(models.Category ,{
+        Envelope.belongsTo(models.Category ,{
         foreignKey: 'categoryId',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
@@ -19,19 +19,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Envelope.init({
-    envelopeName: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
-    },
-    monthlyBudget: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    currentBalance: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    }
+    envelopeName: DataTypes.STRING,
+    monthlyBudget: DataTypes.STRING,
+    currentBalance: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Envelope',

@@ -2,34 +2,28 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Transactions', {
+    await queryInterface.createTable('Envelopes', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      categoryId: {
+        categoryId: {
         type: Sequelize.INTEGER,
         allowNull:false,
-        references: {model: 'Category', key:'id'}
+        references: {model: 'Categories', key:'id'}
       },
-      envelopeId: {
-        type: Sequelize.INTEGER,
-        allowNull:false,
-        references: {model: 'Envelope', key:'id'}
-      },
-      amount: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      description: {
+      envelopeName: {
         type: Sequelize.STRING,
         allowNull: false,
+        unique:true
       },
-      transaction_date: {
-        type: Sequelize.DATE,
-        allowNull: false,
+      monthlyBudget: {
+        type: Sequelize.STRING
+      },
+      currentBalance: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -42,6 +36,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Transactions');
+    await queryInterface.dropTable('Envelopes');
   }
 };

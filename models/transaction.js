@@ -10,33 +10,21 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here\
-
-      Transaction.belongsTo(models.Category,{
+      // define association here
+        Transaction.belongsTo(models.Category,{
         foreignKey: 'categoryId',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
       })
-      
-      Transaction.belongsTo(models.Envelope,{
+        Transaction.belongsTo(models.Envelope,{
         foreignKey: 'categoryId'
       })
-
     }
   }
   Transaction.init({
-    amount: {
-      type: DataTypes.DECIMAL,
-      allowNull: false
-    },
-    description: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    transaction_date: {
-      type: DataTypes.STRING,
-      allowNull: false
-    }
+    amount: DataTypes.DECIMAL,
+    description: DataTypes.STRING,
+    transaction_date: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'Transaction',

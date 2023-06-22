@@ -12,20 +12,17 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Category.hasMany(models.Envelope, {
-        foreignKey: 'categoryId'
-      });
-
+        foreignKey: 'categoryId',
+        onUpdate: 'CASCADE'
+      })
       Category.hasMany(models.Transaction, {
-        foreignKey: 'categoryId'
+        foreignKey: 'categoryId',
+        onUpdate: 'CASCADE'
       })
     }
   }
   Category.init({
-    name: {
-      type:DataTypes.STRING,
-      allowNull: false,
-      unique: true
-    }
+    name: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Category',
