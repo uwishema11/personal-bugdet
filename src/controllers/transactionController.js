@@ -108,7 +108,7 @@ exports.updateTransaction=async(req,res)=>{
                 message: 'Transaction not found'
             })
         }
-        const updatedTransaction =await transactionService.updateTransaction(trnsactionExist,req.body);
+        await transactionService.updateTransaction(trnsactionExist,req.body);
         res.status(200).json({
             success: true,
             message: 'transaction updated successfuly',

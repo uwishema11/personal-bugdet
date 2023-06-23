@@ -7,7 +7,7 @@ const addEnvelope = async (newRest) => {
 };
 
 const findAllEnvelopes =async() =>{
-  const allEnvelopes =await models.Envelope.FindAll({
+  const allEnvelopes =await models.Envelope.findAll({
     include: [
         {
             model:Envelope
@@ -28,7 +28,7 @@ const findEnvelopesByCategory = async(categoryId)=>{
 };
 
 const findEnvelope =async(envelope) =>{
-  const singleEnvelope =await models.Envelope.FindOne({
+  const singleEnvelope =await models.Envelope.findOne({
     where: {envelope},
     include: [
         {
@@ -42,11 +42,12 @@ const findEnvelope =async(envelope) =>{
 };
 
 const updateEnvelope= async(envelope,envelopeInfo)=>{
-  const updatedEnvelope =await models.Envelope.update(envelopeInfo,{
+   return await models.Envelope.update(envelopeInfo,{
     where: envelope,
-    returning: true
+    returning: true,
+    row: true
   });
-  return updatedEnvelope
+  
 };
 
 const deleteEnvelope =async(id) =>{

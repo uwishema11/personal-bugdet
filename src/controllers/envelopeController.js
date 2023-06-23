@@ -101,10 +101,10 @@ exports.deleteSingleEnvelope =async(req,res) =>{
                 message: 'Envelope not found'
             });
         }
-        const singleEnvelope =await envelopeService.deleteEnvelope(isEnvelopeExist);
+        await envelopeService.deleteEnvelope(isEnvelopeExist);
         return res.status(200).json({
             success: true,
-            result:singleEnvelope
+            message: 'envelope succfully deleted'
         })
     }
     catch(error){

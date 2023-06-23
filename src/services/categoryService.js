@@ -7,24 +7,26 @@ const addCategory = async (newRest) => {
 };
 
 const findAllCategories =async() =>{
-  const allCategories =await models.Category.FindAll();
+  const allCategories =await models.Category.findAll();
   return allCategories;
 }
 
 const findCategory =async(id) =>{
-  const singleCategory =await models.Category.FindOne({
+  const singleCategory =await models.Category.findOne({
     where: {id}
   });
   return singleCategory;
 };
 
-const updateCategory= async(category,categoryInfo)=>{
-  const updatedCategory =await models.Category.update(categoryInfo,{
-    where: category,
-    returning: true
+const updateCategory= async(id,categoryInfo)=>{
+   return await models.Category.update(categoryInfo,{
+    where: {id},
+    returning: true,
+    raw: true
   });
-  return updatedCategory
+
 };
+
 
 const deleteCategory =async(id) =>{
   return await models.Category.destroy({

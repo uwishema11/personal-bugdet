@@ -9,7 +9,7 @@ router.post('/',transactioncontroller.createTransaction);
 router.get('/', transactioncontroller.getAllTransaction);
 router.get('/:id',transactioncontroller.getSingleTransaction);
 router.delete('/:id',transactioncontroller.deleteSingleTransaction);
-router.patch('/:id',transactioncontroller.updateTransaction);
+router.put('/:id',transactioncontroller.updateTransaction);
 
 
 module.exports =router;

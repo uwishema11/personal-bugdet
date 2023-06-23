@@ -89,7 +89,7 @@ exports.deleteSingleCategory =async(req,res) =>{
         }
         return res.status(200).json({
             success: true,
-            result:singleCategory
+            message: 'category successfully deleted'
         })
     }
     catch(error){
@@ -119,10 +119,10 @@ exports.updateCAtegory =async(req,res)=>{
             })
         }  
         
-        const updatedCAtegory =await categoryservice.updateCategory(req.params.id,req.body);
+         await categoryservice.updateCategory(req.params.id,req.body);
         res.status(200).json({
             success: true,
-            result: updatedCAtegory
+            message: 'category succfully updated'
         })
 
     }catch(error){

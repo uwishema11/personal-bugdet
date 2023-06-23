@@ -48,10 +48,11 @@ const findTransaction =async(id) =>{
   return singleTransaction;
 };
 
-const updateTransaction= async(envelope,envelopeInfo)=>{
+const updateTransaction= async(id,envelopeInfo)=>{
   const updatedTransaction =await models.Transaction.update(envelopeInfo,{
-    where: envelope,
-    returning: true
+    where: id,
+    returning: true,
+    raw: true
   });
   return updatedTransaction
 };
