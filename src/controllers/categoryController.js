@@ -4,9 +4,10 @@ const categoryservice =require('../services/categoryService')
 
 exports.createCategory = async(req,res) =>{
     try{
-        console.log(req.body)
-        const isExist= req.body.name
-        const exixtedCategory = await categoryservice.findCategory(isExist);
+
+        const category= req.body;
+        console.log(category);
+        const exixtedCategory = await categoryservice.findCategoryByName(category.name);
        
         if(exixtedCategory) {
             return res.status(400).json({
@@ -14,7 +15,8 @@ exports.createCategory = async(req,res) =>{
                 message: 'category already exists'
             })
         };
-        const createdCategory = await categoryservice.addCategory(req.body);
+        const createdCategory = await categoryservice.addCategory(category);
+        console.log(createdCategory)
         return res.status(200).json({
             success: true,
             result: createdCategory
@@ -119,10 +121,11 @@ exports.updateCAtegory =async(req,res)=>{
             })
         }  
         
-         await categoryservice.updateCategory(req.params.id,req.body);
+        const updatedCategory= await categoryservice.updateCategory(req.params.id,req.body);
         res.status(200).json({
             success: true,
-            message: 'category succfully updated'
+            message: 'category succfully updated',
+            result:updatedCategory
         })
 
     }catch(error){

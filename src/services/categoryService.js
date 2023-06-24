@@ -11,10 +11,17 @@ const findAllCategories =async() =>{
   return allCategories;
 }
 
-const findCategory =async(id) =>{
+const findCategoryById =async(id) =>{
   const singleCategory =await models.Category.findOne({
     where: {id}
   });
+  return singleCategory;
+};
+
+const findCategoryByName =async(name) =>{
+  const singleCategory =await models.Category.findOne(
+    { where:{name:name}}
+  );
   return singleCategory;
 };
 
@@ -38,7 +45,8 @@ const deleteCategory =async(id) =>{
 module.exports = { 
   addCategory,
   findAllCategories,
-  findCategory,
+  findCategoryById,
+  findCategoryByName,
   updateCategory,
   deleteCategory
 }

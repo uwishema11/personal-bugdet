@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
         Envelope.belongsTo(models.Category ,{
         foreignKey: 'categoryId',
+        as: 'categories',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
       })

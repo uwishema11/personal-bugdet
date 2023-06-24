@@ -1,5 +1,6 @@
 
 const models = require('../../models');
+const {Category }  = require('../../models');
 
 const addEnvelope = async (newRest) => {
   const category = await models.Envelope.create(newRest);
@@ -10,7 +11,7 @@ const findAllEnvelopes =async() =>{
   const allEnvelopes =await models.Envelope.findAll({
     include: [
         {
-            model:Envelope
+            model:Category
         }
     ]
   });
@@ -27,9 +28,22 @@ const findEnvelopesByCategory = async(categoryId)=>{
     return envelopes
 };
 
-const findEnvelope =async(envelope) =>{
+const findEnvelope =async(id) =>{
   const singleEnvelope =await models.Envelope.findOne({
-    where: {envelope},
+    where: {id},
+    include: [
+        {
+            model:Category,
+            as: 'categories',
+            attributes: {exclude: ['createdAt', 'updatedAt']}
+        },
+    ],
+  });
+  return singleEnvelope;
+};
+const findEnvelopeByName =async(envelopeName) =>{
+  const singleEnvelope =await models.Envelope.findOne({
+    where: {envelopeName},
     include: [
         {
             model:Category,
@@ -41,9 +55,9 @@ const findEnvelope =async(envelope) =>{
   return singleEnvelope;
 };
 
-const updateEnvelope= async(envelope,envelopeInfo)=>{
+const updateEnvelope= async(id,envelopeInfo)=>{
    return await models.Envelope.update(envelopeInfo,{
-    where: envelope,
+    where: {id},
     returning: true,
     row: true
   });
@@ -63,5 +77,6 @@ module.exports = {
   findEnvelope,
   updateEnvelope,
   deleteEnvelope,
+  findEnvelopeByName,
   findEnvelopesByCategory
 }

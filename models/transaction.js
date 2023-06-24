@@ -13,11 +13,12 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
         Transaction.belongsTo(models.Category,{
         foreignKey: 'categoryId',
+        as: 'categories',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
       })
         Transaction.belongsTo(models.Envelope,{
-        foreignKey: 'categoryId'
+        foreignKey: 'envelopeId'
       })
     }
   }

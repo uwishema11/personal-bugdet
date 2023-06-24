@@ -12,7 +12,9 @@ module.exports = {
         categoryId: {
         type: Sequelize.INTEGER,
         allowNull:false,
-        references: {model: 'Categories', key:'id'}
+        references: {model: 'Categories', key:'id'},
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       envelopeName: {
         type: Sequelize.STRING,

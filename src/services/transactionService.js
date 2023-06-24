@@ -1,7 +1,6 @@
 
-
-
 const models = require('../../models');
+const {Category,Envelope}  = require('../../models');
 
 const addTransaction = async (newRest) => {
   const transaction = await models.Transaction.create(newRest);
@@ -27,7 +26,7 @@ const findAllTransaction =async() =>{
 const findTransactionByCategory = async(categoryId)=>{
     const transactions = await models.Transaction.findAll({
         where: {categoryId},
-        aatributes:{
+        atributes:{
             exclude: ['createdAt', 'updatedAt']
         }
     });
@@ -50,7 +49,7 @@ const findTransaction =async(id) =>{
 
 const updateTransaction= async(id,envelopeInfo)=>{
   const updatedTransaction =await models.Transaction.update(envelopeInfo,{
-    where: id,
+    where: {id},
     returning: true,
     raw: true
   });

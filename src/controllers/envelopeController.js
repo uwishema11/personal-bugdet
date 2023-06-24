@@ -3,9 +3,11 @@ const envelopeService = require('../services/envelopeService')
 
 exports.createEnvelope = async(req,res) =>{
     try{
-         const isExist= req.body.envelopeName
-        const existedEnvelope= await envelopeService.findEnvelope(isExist);
         
+         const isExist= req.body.envelopeName
+         
+        const existedEnvelope= await envelopeService.findEnvelopeByName(isExist);
+        console.log(req.body)
         if(existedEnvelope){
             return res.status(200).json({
                 success: 'fail',
@@ -21,7 +23,7 @@ exports.createEnvelope = async(req,res) =>{
     catch(error){
         return res.status(500).json({
             success: 'failled',
-            message: error.message[0]
+            message: error.message
         })
     }
 };
@@ -92,10 +94,11 @@ exports.deleteSingleEnvelope =async(req,res) =>{
         if(!isEnvelopeExist){
             return res.status(404).json({
                 success: 'failled',
-                message: 'Envelope not found'
+                message: ' Please  select an Envelope to be deleted'
             })
         }
-        if(!isEnvelopeExist){
+        const envelope =await envelopeService.findEnvelope(isEnvelopeExist)
+        if(!envelope){
             return res.status(404).json({
                 success: 'failled',
                 message: 'Envelope not found'
@@ -128,6 +131,7 @@ exports.updateEnvelope =async(req,res)=>{
         const updatedEnvelope =await envelopeService.updateEnvelope(isEnvelopeExist,req.body);
         res.status(200).json({
             success: true,
+            message: 'Envelope succfully updated',
             result: updatedEnvelope
         })
 
