@@ -47,8 +47,8 @@ exports.getAllEnvelopes=async(req,res) =>{
 };
 exports.getAllEnvelopesbyCategory=async(req,res) =>{
     try{
-        const category= req.params.id
-        const AllEnvelopes =await envelopeService.findEnvelopesByCategory(category);
+        const {categoryId}= req.params
+        const AllEnvelopes =await envelopeService.findEnvelopesByCategory(categoryId);
         return res.status(200).json({
             success: true,
             result:AllEnvelopes
