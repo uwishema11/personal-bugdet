@@ -7,7 +7,7 @@ exports.createEnvelope = async(req,res) =>{
          const isExist= req.body.envelopeName
          
         const existedEnvelope= await envelopeService.findEnvelopeByName(isExist);
-        console.log(req.body)
+        
         if(existedEnvelope){
             return res.status(200).json({
                 success: 'fail',

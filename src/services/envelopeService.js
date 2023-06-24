@@ -21,7 +21,7 @@ const findAllEnvelopes =async() =>{
 const findEnvelopesByCategory = async(categoryId)=>{
     const envelopes = await models.Envelope.findAll({
         where: {categoryId},
-        aatributes:{
+        attributes:{
             exclude: ['createdAt', 'updatedAt']
         }
     });

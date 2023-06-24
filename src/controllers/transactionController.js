@@ -1,9 +1,22 @@
 
 const transactionService =require('../services/transactionService')
-
+const envelopeService=require('../services/envelopeService')
 exports.createTransaction = async(req,res) =>{
     try{
+        const { envelopeId, amount } = req.body;
+        const envelope = await envelopeService.findEnvelope(envelopeId);
         
+        if (envelope.currentBalance < amount) {
+            return res.status(400).json({
+                success: false,
+                message: 'Insufficient funds to complete the transaction'
+            })
+        }
+
+         envelope.currentBalance -= amount;
+         await envelopeService.updateEnvelope(envelopeId,{
+             currentBalance : envelope.currentBalance})
+
         const createdTransaction = await transactionService.addTransaction(req.body)
         return res.status(200).json({
             success: true,
@@ -13,7 +26,7 @@ exports.createTransaction = async(req,res) =>{
     catch(error){
         return res.status(500).json({
             success: 'failled',
-            message: error.message[0]
+            message: error.message
         })
     }
 };
