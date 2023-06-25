@@ -19,6 +19,7 @@ exports.createCategory = async(req,res) =>{
         console.log(createdCategory)
         return res.status(200).json({
             success: true,
+            message: 'Category successfully created.',
             result: createdCategory
         });
     }
@@ -75,23 +76,25 @@ exports.deleteSingleCategory =async(req,res) =>{
     try{
 
         const category =req.params.id
-        const isCategoryExisted =await categoryservice.findCategory(category);
-        if(!isCategoryExisted) {
+    
+        if(!category) {
             return res.status(404).json({
                 success: 'failled',
-                message: 'Category not found'
+                message: ' select Category to be deleted'
             })
-        }  
-        const singleCategory =await categoryservice.deleteCategory(category);
-        if(!singleCategory){
+        };
+        const isCategoryExisted =await categoryservice.findCategoryById(category); 
+        if(!isCategoryExisted){
             return res.status(404).json({
                 success: 'failled',
                 message: 'category not found'
             });
-        }
+        };
+        const singleCategory =await categoryservice.deleteCategory(category);
         return res.status(200).json({
             success: true,
-            message: 'category successfully deleted'
+            message: ' this category successfully deleted:',
+            category: singleCategory
         })
     }
     catch(error){

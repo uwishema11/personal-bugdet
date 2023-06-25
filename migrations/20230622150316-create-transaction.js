@@ -19,7 +19,9 @@ module.exports = {
         envelopeId: {
         type: Sequelize.INTEGER,
         allowNull:false,
-        references: {model: 'Envelopes', key:'id'}
+        references: {model: 'Envelopes', key:'id'},
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       amount: {
         type: Sequelize.DECIMAL

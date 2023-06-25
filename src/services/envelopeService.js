@@ -11,7 +11,8 @@ const findAllEnvelopes =async() =>{
   const allEnvelopes =await models.Envelope.findAll({
     include: [
         {
-            model:Category
+            model:Category,
+            as: 'categories',
         }
     ]
   });

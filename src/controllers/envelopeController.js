@@ -76,6 +76,7 @@ exports.getSingleEnvelope =async(req,res) =>{
         }
         return res.status(200).json({
             success: true,
+            message: 'Envelope successfully created.',
             result:singleEnvelope
         })
     }
@@ -90,27 +91,29 @@ exports.getSingleEnvelope =async(req,res) =>{
 exports.deleteSingleEnvelope =async(req,res) =>{
     try{
 
-        const isEnvelopeExist =req.params.id;
-        if(!isEnvelopeExist){
+        const envelope=req.params.id;
+        console.log(envelope)
+        if(!envelope){
             return res.status(404).json({
                 success: 'failled',
                 message: ' Please  select an Envelope to be deleted'
             })
         }
-        const envelope =await envelopeService.findEnvelope(isEnvelopeExist)
-        if(!envelope){
+        const isEnvelopeExist =await envelopeService.findEnvelope(envelope)
+        if(!isEnvelopeExist){
             return res.status(404).json({
                 success: 'failled',
                 message: 'Envelope not found'
             });
         }
-        await envelopeService.deleteEnvelope(isEnvelopeExist);
+        await envelopeService.deleteEnvelope(envelope);
         return res.status(200).json({
             success: true,
             message: 'envelope succfully deleted'
         })
     }
     catch(error){
+        console.log(error)
         return res.status(500).json({
             success:'fail',
             message: error.message
@@ -120,15 +123,21 @@ exports.deleteSingleEnvelope =async(req,res) =>{
 
 exports.updateEnvelope =async(req,res)=>{
     try{
-        const isEnvelopeExist =(req.params.id);
-        
+        const envelope=req.params.id;
+        if(!envelope){
+            return res.status(404).json({
+                success: 'failled',
+                message: ' Please  select an Envelope to be updated'
+            })
+        }
+        const isEnvelopeExist =await envelopeService.findEnvelope(envelope)
         if(!isEnvelopeExist){
             return res.status(404).json({
                 success: 'failled',
                 message: 'Envelope not found'
-            })
+            });
         }
-        const updatedEnvelope =await envelopeService.updateEnvelope(isEnvelopeExist,req.body);
+        const updatedEnvelope =await envelopeService.updateEnvelope(envelope,req.body);
         res.status(200).json({
             success: true,
             message: 'Envelope succfully updated',

@@ -18,7 +18,10 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: 'CASCADE',
       })
         Transaction.belongsTo(models.Envelope,{
-        foreignKey: 'envelopeId'
+        foreignKey: 'envelopeId',
+        as: 'envelopes',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       })
     }
   }

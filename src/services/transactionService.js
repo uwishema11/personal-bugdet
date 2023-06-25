@@ -8,14 +8,16 @@ const addTransaction = async (newRest) => {
 };
 
 const findAllTransaction =async() =>{
-  const allTransactions =await models.Transaction.FindAll({
-    include: [
+  const allTransactions =await models.Transaction.findAll({
+    include:[
         {
             model:Category,
+            as: 'categories',
             attributes: { exclude: ['createdAt', 'updatedAt'] },
         },
         {
             model:Envelope,
+            as: 'envelopes',
             attributes: { exclude: ['createdAt', 'updatedAt'] },
         },
     ]
@@ -34,7 +36,7 @@ const findTransactionByCategory = async(categoryId)=>{
 };
 
 const findTransaction =async(id) =>{
-  const singleTransaction =await models.Transaction.FindOne({
+  const singleTransaction =await models.Transaction.findOne({
     where: {id},
     include: [
         {

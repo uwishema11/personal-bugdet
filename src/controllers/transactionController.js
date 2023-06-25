@@ -1,6 +1,9 @@
 
-const transactionService =require('../services/transactionService')
-const envelopeService=require('../services/envelopeService')
+const transactionService = require('../services/transactionService')
+const envelopeService=require('../services/envelopeService');
+
+
+
 exports.createTransaction = async(req,res) =>{
     try{
         const { envelopeId, amount } = req.body;
@@ -20,6 +23,7 @@ exports.createTransaction = async(req,res) =>{
         const createdTransaction = await transactionService.addTransaction(req.body)
         return res.status(200).json({
             success: true,
+            message: 'Transaction successfully completed.',
             result: createdTransaction
         })
     }
@@ -77,21 +81,21 @@ exports.getSingleTransaction =async(req,res) =>{
 
 exports.deleteSingleTransaction =async(req,res) =>{
     try{
-        const trnsactionExist =req.params.id;
-         if(!trnsactionExist){
+        const transaction =req.params.id;
+         if(!transaction){
             return res.status(400).json({
                 success: 'failled',
                 message: 'Select transaction to be deleted'
             });
         }
-        const isTransactionExist= await transactionService.findTransaction(trnsactionExist)
+        const isTransactionExist= await transactionService.findTransaction(transaction)
         if(!isTransactionExist){
             return res.status(404).json({
                 success: 'failled',
                 message: 'Transaction not found'
             })
         }
-        await transactionService.deleteTransaction(isTransactionExist);
+        await transactionService.deleteTransaction(transaction);
         return res.status(200).json({
             success: true,
             message: 'Transaction deleted successfully'
@@ -107,22 +111,40 @@ exports.deleteSingleTransaction =async(req,res) =>{
 
 exports.updateTransaction=async(req,res)=>{
     try{
-        const trnsactionExist =req.params.id;
-         if(!trnsactionExist){
+        const transaction=req.params.id;
+        const {envelopeId,amount } = req.body;
+
+         if(!transaction){
             return res.status(400).json({
                 success: 'failled',
                 message: 'Select transaction to be updated'
             });
         }
-        const isTransactionExist= await transactionService.findTransaction(trnsactionExist)
+        const isTransactionExist= await transactionService.findTransaction(transaction)
+        
         if(!isTransactionExist){
             return res.status(404).json({
                 success: 'failled',
                 message: 'Transaction not found'
             })
         }
-        await transactionService.updateTransaction(trnsactionExist,req.body);
-        res.status(200).json({
+
+        
+        const envelope = await envelopeService.findEnvelope(envelopeId);
+        console.log(envelope)
+    // Calculate the difference between the existing and updated amounts
+        const amountDifference = amount - isTransactionExist.amount;
+
+        envelope.currentBalance =parseFloat(envelope.currentBalance) + amountDifference;;
+        console.log(envelope.currentBalance)
+        
+        //update the currengt balance
+         await envelopeService.updateEnvelope(envelopeId,{
+         currentBalance : envelope.currentBalance})
+
+        const updatedTransaction = await transactionService.updateTransaction(transaction, req.body);
+
+        return res.status(200).json({
             success: true,
             message: 'transaction updated successfuly',
             result: updatedTransaction
