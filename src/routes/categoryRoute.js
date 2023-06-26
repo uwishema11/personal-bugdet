@@ -10,8 +10,8 @@ router.post('/',categorycontroller.createCategory);
 router.get('/',categorycontroller.getAllCategory);
 router.get('/:id',categorycontroller.getSingleCategory);
 router.get('/:categoryId/envelopes',envelopecontroller.getAllEnvelopesbyCategory);
-router.delete('/:id',categorycontroller.deleteSingleCategory);
-router.put('/:id',categorycontroller.updateCAtegory)
+router.delete('/delete/:id',categorycontroller.deleteSingleCategory);
+router.put('/update/:id',categorycontroller.updateCAtegory)
 
 
 module.exports =router;

@@ -1,9 +1,14 @@
 
 
-const app =require('./app')
-const sequelize= require('../config/database.js')
+const app =require('./app');
+const sequelize= require('../config/database.js');
+const swaggerDocs = require('../public/api-docs/swagger.js');
+
+
 
 const PORT = process.env.PORT;
+
+swaggerDocs(app);
 
 const connectToDatabase = async () => {
   try {

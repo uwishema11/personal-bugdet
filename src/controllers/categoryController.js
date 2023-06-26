@@ -52,14 +52,14 @@ exports.getSingleCategory =async(req,res) =>{
     try{
 
         const category =req.params.id
-        const isCategoryExisted =await categoryservice.findCategory(category);
+        const isCategoryExisted =await categoryservice.findAllCategories(category);
         if(!isCategoryExisted) {
             return res.status(404).json({
                 success: 'failled',
                 message: 'Category not found'
             })
         }  
-        const singleCategory =await categoryservice.findCategory(category);
+        const singleCategory =await categoryservice.findCategoryById(category);
         return res.status(200).json({
             success: true,
             result:singleCategory
