@@ -8,8 +8,8 @@ const router =express.Router();
 router.post('/',envelopecontroller.createEnvelope);
 router.get('/', envelopecontroller.getAllEnvelopes);
 router.get('/:id',envelopecontroller.getSingleEnvelope);
-router.delete('/:id',envelopecontroller.deleteSingleEnvelope);
-router.patch('/:id',envelopecontroller.updateEnvelope);
+router.delete('/detele/:id',envelopecontroller.deleteSingleEnvelope);
+router.put('/update/:id',envelopecontroller.updateEnvelope);
 
 
 module.exports =router;
