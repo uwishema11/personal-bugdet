@@ -3,18 +3,21 @@ definitions:
   envelope:
     type: object
     required:
+      - categoryId
       - envelopeName
       - monthlyBudget
       - currentBalance
     properties:
-      name:
+      categoryId:
+        type: integer
+      envelopeName:
         type: string
       monthlyBudget: 
         type: integer
       currentBalance:
         type: integer  
 paths:
-  /api/v1/envelope:
+  /api/v1/envelope/create:
     post:
       tags:
         - Envelope
@@ -32,6 +35,20 @@ paths:
           description: Internal server error
         '401':
           description: Anauthorized
+        '400':
+          description: Bad request
+  /api/v1/envelope:
+    get:
+      tags:
+        - Envelope
+      summary: Get All envelopes
+      responses:
+        '200':
+          description: All envelopes
+        '500':
+          description: Internal server error
+        '401':
+          description: unauthorized
         '400':
           description: Bad request
   /api/v1/envelope/{id}:

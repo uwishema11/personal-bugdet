@@ -5,7 +5,7 @@ const envelopecontroller=require('../controllers/envelopeController');
 
 const router =express.Router();
 
-router.post('/',envelopecontroller.createEnvelope);
+router.post('/create',envelopecontroller.createEnvelope);
 router.get('/', envelopecontroller.getAllEnvelopes);
 router.get('/:id',envelopecontroller.getSingleEnvelope);
 router.delete('/detele/:id',envelopecontroller.deleteSingleEnvelope);

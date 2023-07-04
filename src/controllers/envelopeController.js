@@ -4,10 +4,9 @@ const envelopeService = require('../services/envelopeService')
 exports.createEnvelope = async(req,res) =>{
     try{
         
-         const isExist= req.body.envelopeName
-         
-        const existedEnvelope= await envelopeService.findEnvelopeByName(isExist);
-        
+         const envelope= req.body
+        const existedEnvelope= await envelopeService.findEnvelopeByName(envelope.envelopeName);
+        console.log(existedEnvelope)
         if(existedEnvelope){
             return res.status(200).json({
                 success: 'fail',
@@ -21,6 +20,7 @@ exports.createEnvelope = async(req,res) =>{
         })
     }
     catch(error){
+         console.log(error)
         return res.status(500).json({
             success: 'failled',
             message: error.message

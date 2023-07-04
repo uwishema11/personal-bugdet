@@ -1,6 +1,6 @@
 
 definitions:
-  envelope:
+  transaction:
     type: object
     required:
       - amount

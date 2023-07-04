@@ -20,7 +20,7 @@ const findCategoryById =async(id) =>{
 
 const findCategoryByName =async(name) =>{
   const singleCategory =await models.Category.findOne(
-    { where:{name:name}}
+    { where: {name}}
   );
   return singleCategory;
 };

@@ -8,7 +8,7 @@ exports.createCategory = async(req,res) =>{
         const category= req.body;
         console.log(category);
         const exixtedCategory = await categoryservice.findCategoryByName(category.name);
-       
+       console.log(exixtedCategory);
         if(exixtedCategory) {
             return res.status(400).json({
                 success: false,
@@ -60,6 +60,7 @@ exports.getSingleCategory =async(req,res) =>{
             })
         }  
         const singleCategory =await categoryservice.findCategoryById(category);
+        console.log(singleCategory)
         return res.status(200).json({
             success: true,
             result:singleCategory

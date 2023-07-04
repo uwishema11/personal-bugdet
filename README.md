@@ -29,4 +29,4 @@ This API allows clients to create and manage a personal budget using Envelope Bu
 1. Clone the repository:
 
 ```shell
-git clone https://github.com/your-username/personal-budget-api.git
+git clone https://github.com/uwishema11/personal-bugdet.git
